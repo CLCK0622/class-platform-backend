@@ -4,6 +4,15 @@ import jwt from "jsonwebtoken";
 import { pool } from "@/utils/db";
 
 export async function POST(req) {
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3001");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+    if (req.method === "OPTIONS") {
+        res.status(200).end();
+        return;
+    }
+
     const { username, password } = await req.json();
 
     if (!username || !password) {
